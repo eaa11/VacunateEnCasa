@@ -6,8 +6,8 @@ namespace Tarea9._0.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        [MaxLength(5)]
+        [MaxLength(5, ErrorMessage = "El campo {0} no puede contener mas de {1} caracteres)")]
+        [Required(ErrorMessage = "El campo {0} es requerido.")]
         public string Tipo { get; set; }
 
     }

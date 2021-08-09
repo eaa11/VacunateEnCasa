@@ -10,36 +10,38 @@ namespace Tarea9._0.Models
     {
         [Key]
         public int Id { get; set; }
-        [MaxLength(13)]
-        [Required]
+        [MaxLength(13, ErrorMessage = "El campo {0} no puede contener mas de {1} caracteres)")]
+        [Required(ErrorMessage ="La {0} es requerida.")]
         public string Cedula { get; set; }
-        [MaxLength(50)]
-        [Required]
+        [MaxLength(50, ErrorMessage = "El campo {0} no puede contener mas de {1} caracteres)")]
+        [Required(ErrorMessage = "El {0} es requerido.")]
         public string Nombre { get; set; }
-        [MaxLength(50)]
-        [Required]
+        [MaxLength(50, ErrorMessage = "El campo {0} no puede contener mas de {1} caracteres)")]
+        [Required(ErrorMessage = "El {0} es requerido.")]
         public string Apellido { get; set; }
-        [MaxLength(10)]
-        [Required]
+        [MaxLength(10, ErrorMessage = "El campo {0} no puede contener mas de {1} caracteres)")]
+        [Required(ErrorMessage = "El {0} es requerido.")]
         public string Telefono { get; set; }
-        [MaxLength(50)]
-        [Required]
+        [MaxLength(50, ErrorMessage = "El campo {0} no puede contener mas de {1} caracteres)")]
+        [Required(ErrorMessage = "El {0} es requerido.")]
         public string Correo { get; set; }
-        [Required]
+        [Required(ErrorMessage = "La {0} es requerida.")]
         public DateTime FechaNacimiento { get; set; }
         public Sangre Sangre { get; set; }
+        public int IdSangre { get; set; }
         public Provincia Provincia { get; set; }
-        [MaxLength(100)]
-        [Required]
+        public int IdProvincia { get; set; }
+        [MaxLength(100, ErrorMessage = "El campo {0} no puede contener mas de {1} caracteres)")]
+        [Required(ErrorMessage = "La {0} es requerida.")]
         public string Direccion { get; set; }
-        [Required]
+        [Required(ErrorMessage = "La {0} es requerida.")]
         public decimal Latitud { get; set; }
-        [Required]
+        [Required(ErrorMessage = "La {0} es requerida.")]
         public decimal Longitud { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El {0} es requerido.")]
         public bool HistorialCovid { get; set; }
-        [Required]
-        [MaxLength(100)]
+        [Required(ErrorMessage = "La {0} es requerida.")]
+        [MaxLength(150,ErrorMessage ="El campo {0} no puede contener mas de {1} caracteres")]
         public string Justificacion { get; set; }
 
     }
