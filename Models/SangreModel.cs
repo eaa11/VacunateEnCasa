@@ -8,7 +8,7 @@ namespace Tarea9._0.Models
     {
         [Key]
         public int Id { get; set; }
-        [MaxLength(5, ErrorMessage = "El campo {0} no puede contener mas de {1} caracteres)")]
+        [MaxLength(10, ErrorMessage = "El campo {0} no puede contener mas de {1} caracteres)")]
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         public string Tipo { get; set; }
         public ICollection<PersonaModel> Personas { get; set; }
