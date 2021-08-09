@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tarea9._0.Models
 {
-    public class Persona
+    public class PersonaModel
     {
         [Key]
         public int Id { get; set; }
@@ -36,11 +36,11 @@ namespace Tarea9._0.Models
         public DateTime FechaNacimiento { get; set; }
         public int IdSangre { get; set; }
         [ForeignKey("IdSangre")]
-        public Sangre Sangre { get; set; }
+        public SangreModel Sangre { get; set; }
         public int IdProvincia { get; set; }
 
         [ForeignKey("IdProvincia")]
-        public Provincia Provincia { get; set; }
+        public ProvinciaModel Provincia { get; set; }
 
         [MaxLength(100, ErrorMessage = "El campo {0} no puede contener mas de {1} caracteres)")]
         [Required(ErrorMessage = "La {0} es requerida.")]

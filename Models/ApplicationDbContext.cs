@@ -14,8 +14,8 @@ namespace Tarea9._0.Models
 
         }
 
-        public virtual DbSet<Persona> Personas { get; set; }
-        public virtual DbSet<Provincia> Provincias { get; set; }
-        public virtual DbSet<Sangre> Sangres { get; set; }
+        public virtual DbSet<PersonaModel> Personas { get; set; }
+        public virtual DbSet<ProvinciaModel> Provincias { get; set; }
+        public virtual DbSet<SangreModel> Sangres { get; set; }
     }
 }
