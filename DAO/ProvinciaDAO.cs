@@ -51,5 +51,12 @@ namespace Tarea9._0.DAO
 
             return await db.SaveChangesAsync() > 0;
         }
+        public async Task<bool> SaveProvincia(ProvinciaModel provincia)
+        {
+            if (provincia.Id > 0)
+                return await UpdateProvincia(provincia);
+            else
+                return await RegistrarProvincia(provincia);
+        }
     }
 }

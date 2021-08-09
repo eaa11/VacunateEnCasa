@@ -24,11 +24,6 @@ namespace Tarea9._0.DAO
         {
             var sangre = await db.Sangres.FindAsync(id);
 
-            //if (persona == null)
-            //{
-            //    return null;
-            //}
-
             return sangre;
         }
         public async Task<bool> RegistrarSangre(SangreModel sangre)
@@ -50,6 +45,13 @@ namespace Tarea9._0.DAO
             db.Sangres.Remove(sangre);
 
             return await db.SaveChangesAsync() > 0;
+        }
+        public async Task<bool> SaveSangre(SangreModel sangre)
+        {
+            if (sangre.Id > 0)
+                return await UpdateSangre(sangre);
+            else
+                return await RegistrarSangre(sangre);
         }
     }
 }
