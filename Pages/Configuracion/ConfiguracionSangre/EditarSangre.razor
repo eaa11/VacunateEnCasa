@@ -1,0 +1,39 @@
+﻿@page "/editar-sangre/{Id:int}"
+@inject SangreDAO DAO
+@inject NavigationManager Navigator
+
+<h3>EDITAR REGISTRO DE PROVINCIAS</h3>
+<hr />
+
+@if (!string.IsNullOrEmpty(error))
+{
+    <text>@error</text>
+}
+<SangreForm TextoBoton="Guardar" OnValidSubmit="@GuardarRegistro" OProvincia="@OSangre" />
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    SangreModel OSangre = new SangreModel();
+    string error = string.Empty;
+
+
+    protected async override Task OnParametersSetAsync()
+    {
+        OSangre = await DAO.GetSangreDetails(Id);
+    }
+    protected async Task GuardarRegistro()
+    {
+        try
+        {
+            await DAO.SaveSangre(OSangre);
+            Navigator.NavigateTo("/registrar-sangre");
+        }
+        catch (Exception ex)
+        {
+
+            Console.WriteLine(ex.Message);
+            error = ex.Message;
+        }
+    }
+}

@@ -1,0 +1,57 @@
+﻿@page "/registrar-provincia"
+@inject ProvinciaDAO DAO
+
+<h3>REGISTRO DE PROVINCIAS</h3>
+
+<hr />
+
+<ProvinciaForm TextoBoton="Registrar" OnValidSubmit="@RegistrarProvincia" OProvincia="@OProvincia" />
+
+
+<table class="table table-striped">
+    <thead class="table-primary">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Provincias == null)
+        {
+            @:Loading...
+        }
+        else if (Provincias.Count() ==0 )
+        {
+            @:No hay registros...
+        }
+        else
+        {
+            @foreach (var provincia in Provincias)
+            {
+                <tr>
+                    <td>@provincia.Id</td>
+                    <td>@provincia.Nombre</td>
+                    <td>
+                        <a href="editar-robo/@provincia.Id" class="btn btn-success">Editar</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+
+    private ProvinciaModel OProvincia = new ProvinciaModel();
+    private IEnumerable<ProvinciaModel> Provincias { get; set; }
+
+    protected async Task RegistrarProvincia()
+    {
+        await DAO.SaveProvincia(OProvincia);
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        Provincias = await DAO.GetProvincia();
+    }
+}

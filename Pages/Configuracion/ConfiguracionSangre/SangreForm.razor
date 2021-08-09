@@ -1,0 +1,28 @@
+﻿<EditForm Model="@OSangre" OnValidSubmit="@OnValidSubmit">
+    <table class="table">
+        <tr>
+            <td>Tipo:</td>
+            <td><input class="form-control col-sm-4" type="text" @bind="OSangre.Tipo" /></td>
+            <ValidationMessage For="@(()=> OSangre.Tipo)" />
+        </tr>
+        <tr>
+            <td>
+                <button type="submit" class="btn btn-primary">@TextoBoton</button>
+                <a href="configuracion" class="btn btn-primary">Volver</a>
+            </td>
+        </tr>
+    </table>
+
+    <DataAnnotationsValidator />
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public SangreModel OSangre { get; set; } = new SangreModel();
+    [Parameter]
+    public string TextoBoton { get; set; } = "Guardar";
+    [Parameter]
+    public EventCallback OnValidSubmit { get; set; }
+
+}

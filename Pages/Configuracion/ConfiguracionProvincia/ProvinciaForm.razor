@@ -1,0 +1,27 @@
+﻿<EditForm Model="@OProvincia" OnValidSubmit="@OnValidSubmit">
+    <table class="table">
+        <tr>
+            <td>Provincia:</td>
+            <td><input class="form-control col-sm-4" type="text" @bind="OProvincia.Nombre" /></td>
+            <ValidationMessage For="@(()=> OProvincia.Nombre)" />
+        </tr>
+        <tr>
+            <td>
+                <button type="submit" class="btn btn-primary">@TextoBoton</button>
+                <a href="configuracion" class="btn btn-primary">Volver</a>
+            </td>
+        </tr>
+    </table>
+
+    <DataAnnotationsValidator />
+</EditForm>
+
+@code {
+    [Parameter]
+    public ProvinciaModel OProvincia { get; set; } = new ProvinciaModel();
+    [Parameter]
+    public string TextoBoton { get; set; } = "Guardar";
+    [Parameter]
+    public EventCallback OnValidSubmit { get; set; }
+
+}

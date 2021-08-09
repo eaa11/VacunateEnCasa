@@ -1,0 +1,58 @@
+﻿@page "/registrar-sangre"
+@inject SangreDAO DAO
+
+<h3>REGISTRO DE SANGRES</h3>
+
+<hr />
+
+<SangreForm TextoBoton="Registrar" OnValidSubmit="@RegistrarSangre" OSangre="@OSangre" />
+
+
+<table class="table table-striped">
+    <thead class="table-primary">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Sangres == null)
+        {
+            @:Loading...
+        }
+        else if (Sangres.Count() == 0)
+        {
+            @:No hay registros...
+        }
+        else
+        {
+            @foreach (var tipo in Sangres)
+            {
+                <tr>
+                    <td>@tipo.Id</td>
+                    <td>@tipo.Tipo</td>
+                    <td>
+                        <a href="editar-sangre/@tipo.Id" class="btn btn-success">Editar</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+
+    private SangreModel OSangre = new SangreModel();
+    private IEnumerable<SangreModel> Sangres { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Sangres = await DAO.GetSangres();
+    }
+
+    protected async Task RegistrarSangre()
+    {
+        await DAO.SaveSangre(OSangre);
+    }
+}
