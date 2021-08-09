@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tarea9._0.DAO;
 using Tarea9._0.Models;
 
 namespace Tarea9._0
@@ -31,6 +32,8 @@ namespace Tarea9._0
             services.AddServerSideBlazor();
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<ProvinciaDAO>();
+            services.AddScoped<SangreDAO>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
