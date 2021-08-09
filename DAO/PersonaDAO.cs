@@ -17,23 +17,23 @@ namespace Tarea9._0.DAO
             this.db = db;
         }
 
-        public async Task<IEnumerable<Persona>> GetPersonas()
+        public async Task<IEnumerable<PersonaModel>> GetPersonas()
         {
             return await db.Personas.ToListAsync();
         }
-        public async Task<Persona> GetPersonaDetails(int id)
+        public async Task<PersonaModel> GetPersonaDetails(int id)
         {
             var persona = await db.Personas.FindAsync(id);
 
             return persona;
         }
-        public async Task<bool> RegistrarPersona(Persona persona)
+        public async Task<bool> RegistrarPersona(PersonaModel persona)
         {
             db.Personas.Add(persona);
 
             return await db.SaveChangesAsync() > 0;
         }
-        public async Task<bool> UpdatePersona(Persona persona)
+        public async Task<bool> UpdatePersona(PersonaModel persona)
         {
             db.Entry(persona).State = EntityState.Modified;
 
@@ -48,7 +48,7 @@ namespace Tarea9._0.DAO
             return await db.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> SavePersona(Persona persona)
+        public async Task<bool> SavePersona(PersonaModel persona)
         {
             if (persona.Id > 0)
                 return await UpdatePersona(persona);

@@ -16,11 +16,11 @@ namespace Tarea9._0.DAO
             this.db = db;
         }
 
-        public async Task<IEnumerable<Provincia>> GetProvincia()
+        public async Task<IEnumerable<ProvinciaModel>> GetProvincia()
         {
             return await db.Provincias.ToListAsync();
         }
-        public async Task<Provincia> GetProvinciaDetails(int id)
+        public async Task<ProvinciaModel> GetProvinciaDetails(int id)
         {
             var provincia = await db.Provincias.FindAsync(id);
 
@@ -31,13 +31,13 @@ namespace Tarea9._0.DAO
 
             return provincia;
         }
-        public async Task<bool> RegistrarProvincia(Provincia provincia)
+        public async Task<bool> RegistrarProvincia(ProvinciaModel provincia)
         {
             db.Provincias.Add(provincia);
 
             return await db.SaveChangesAsync() > 0;
         }
-        public async Task<bool> UpdateProvincia(Provincia provincia)
+        public async Task<bool> UpdateProvincia(ProvinciaModel provincia)
         {
             db.Entry(provincia).State = EntityState.Modified;
 

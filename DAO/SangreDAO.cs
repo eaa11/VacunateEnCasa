@@ -16,11 +16,11 @@ namespace Tarea9._0.DAO
             this.db = db;
         }
 
-        public async Task<IEnumerable<Sangre>> GetSangres()
+        public async Task<IEnumerable<SangreModel>> GetSangres()
         {
             return await db.Sangres.ToListAsync();
         }
-        public async Task<Sangre> GetSangreDetails(int id)
+        public async Task<SangreModel> GetSangreDetails(int id)
         {
             var sangre = await db.Sangres.FindAsync(id);
 
@@ -31,13 +31,13 @@ namespace Tarea9._0.DAO
 
             return sangre;
         }
-        public async Task<bool> RegistrarSangre(Sangre sangre)
+        public async Task<bool> RegistrarSangre(SangreModel sangre)
         {
             db.Sangres.Add(sangre);
 
             return await db.SaveChangesAsync() > 0;
         }
-        public async Task<bool> UpdateSangre(Sangre sangre)
+        public async Task<bool> UpdateSangre(SangreModel sangre)
         {
             db.Entry(sangre).State = EntityState.Modified;
 
