@@ -1,0 +1,139 @@
+﻿@page "/create-appointmet"
+@inject PersonaDAO DAOP
+@inject SangreDAO DAOS
+@inject ProvinciaDAO DAOPR
+
+    <h3>REGISTRO DE CITAS PARA VACUNAS</h3>
+    <hr />
+
+
+    <EditForm Model="@OPersona">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <label class="col-form-label" for="Cedula">Cedula</label>
+                            <InputText id="Cedula" class="form-control" @bind-Value="OPersona.Cedula" />
+                            <ValidationMessage For="@(()=> OPersona.Cedula)" />
+                        </div>
+                        <div class="form-group col-12">
+                            <label class="col-form-label" for="Nombre">Nombre</label>
+                            <InputText id="Nombre" class="form-control" @bind-Value="OPersona.Nombre" />
+                            <ValidationMessage For="@(()=> OPersona.Nombre)" />
+                        </div>
+                        <div class="form-group col-12">
+                            <label class="col-form-label" for="Apellido">Apellido</label>
+                            <InputText id="Apellido" class="form-control" @bind-Value="@OPersona.Apellido" />
+                            <ValidationMessage For="@(()=> OPersona.Apellido)" />
+                        </div>
+                        <div class="form-group col-12">
+                            <label class="col-form-label" for="Telefono">Telefono</label>
+                            <InputText id="Telefono" class="form-control" @bind-Value="OPersona.Telefono" />
+                            <ValidationMessage For="@(()=> OPersona.Telefono)" />
+                        </div>
+                        <div class="form-group col-12">
+                            <label class="col-form-label" for="Correo">Correo</label>
+                            <InputText id="Correo" @bind-Value="@OPersona.Correo" class="form-control" />
+                            <ValidationMessage For="@(()=> OPersona.Correo)" />
+                        </div>
+                        <div class="form-group col-sm-12 col-lg-6">
+                            <label class="col-form-label" for="FechaNacimiento">Fecha de nacimiento</label>
+                            <InputDate id="FechaNacimiento" @bind-Value="@OPersona.FechaNacimiento" class="form-control" />
+                            <ValidationMessage For="@(()=> OPersona.FechaNacimiento)" />
+                        </div>
+                        <div class="form-group col-12">
+                            <label class="col-form-label" for="sangre">Sangre</label>
+                            <InputSelect id="sangre" class="form-control" @bind-Value="@OPersona.IdSangre">
+
+                                @if (Sangres != null)
+                                {
+                                    <option value="0">--SELECCIONE--</option>
+                                    @foreach (var s in Sangres)
+                                    {
+                                        <option value="@s.Id">@s.Tipo</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="0">--No hay Data--</option>
+                                }
+                                <ValidationMessage For="@(()=> OPersona.IdSangre)" />
+                            </InputSelect>
+                        </div>
+                        <div class="form-group col-12">
+                            <label class="col-form-label" for="Provincia">Provincia</label>
+                            <InputSelect id="Provincia" class="form-control" @bind-Value="@OPersona.IdProvincia">
+
+                                @if (Provincias != null)
+                                {
+                                    <option value="0">--SELECCIONE--</option>
+                                    @foreach (var p in Provincias)
+                                    {
+                                        <option value="@p.Id">@p.Nombre</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="0">--No hay Data--</option>
+                                }
+                                <ValidationMessage For="@(()=> OPersona.IdProvincia)" />
+                            </InputSelect>
+                        </div>
+                        <div class="form-group col-12">
+                            <label class="col-form-label" for="Direccion">Direccion</label>
+                            <InputText id="Direccion" @bind-Value="@OPersona.Direccion" class="form-control" />
+                            <ValidationMessage For="@(()=> OPersona.Direccion)" />
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label class="col-form-label" for="Latitud">Latitud</label>
+                            <InputNumber id="Latitud" @bind-Value="@OPersona.Latitud" class="form-control" />
+                            <ValidationMessage For="@(()=> OPersona.Latitud)" />
+                        </div>
+                        <div class="form-group col-12">
+                            <label class="col-form-label" for="Longitud">Longitud</label>
+                            <InputNumber id="Longitud" @bind-Value="@OPersona.Longitud" class="form-control" />
+                            <ValidationMessage For="@(()=> OPersona.Longitud)" />
+                        </div>
+                        <div class="form-group col-12">
+                            <label class="col-form-label" for="HistorialCovid">Le ha dado Covid-19?</label>
+                            <InputCheckbox id="HistorialCovid" @bind-Value="@OPersona.HistorialCovid" class="form-control" />
+                            <ValidationMessage For="@(()=> OPersona.HistorialCovid)" />
+                        </div>
+                        <div class="form-group col-12">
+                            <label class="col-form-label" for="Justificacion">Justificacion</label>
+                            <InputTextArea id="Justificacion" @bind-Value="@OPersona.Justificacion" class="form-control" />
+                            <ValidationMessage For="@(()=> OPersona.Justificacion)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-dark" @onclick="SubmitAppointment">Registrar</button>
+            <a href="indice-robos" class="btn btn-primary">Volver</a>
+        </div>
+        <DataAnnotationsValidator />
+    </EditForm>
+
+
+    @code {
+
+        public IEnumerable<SangreModel> Sangres { get; set; }
+        public IEnumerable<ProvinciaModel> Provincias { get; set; }
+
+        private PersonaModel OPersona { get; set; } = new PersonaModel();
+
+        protected override async Task OnInitializedAsync()
+        {
+            Sangres = await DAOS.GetSangres();
+            Provincias = await DAOPR.GetProvincia();
+        }
+
+        protected async Task SubmitAppointment()
+        {
+            await DAOP.SavePersona(OPersona);
+
+        }
+    }
