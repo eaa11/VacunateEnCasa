@@ -34,6 +34,7 @@ namespace Tarea9._0
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ProvinciaDAO>();
             services.AddScoped<SangreDAO>();
+            services.AddScoped<PersonaDAO>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
