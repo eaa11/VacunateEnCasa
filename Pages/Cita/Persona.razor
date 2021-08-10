@@ -2,10 +2,10 @@
 @inject PersonaDAO DAOP
 @inject SangreDAO DAOS
 @inject ProvinciaDAO DAOPR
+@inject IJSRuntime JS
 
     <h3>REGISTRO DE CITAS PARA VACUNAS</h3>
     <hr />
-
 
     <EditForm Model="@OPersona">
         <div class="container-fluid">
@@ -123,6 +123,8 @@
         public IEnumerable<SangreModel> Sangres { get; set; }
         public IEnumerable<ProvinciaModel> Provincias { get; set; }
 
+        protected string message = "";
+
         private PersonaModel OPersona { get; set; } = new PersonaModel();
 
         protected override async Task OnInitializedAsync()
@@ -134,6 +136,8 @@
         protected async Task SubmitAppointment()
         {
             await DAOP.SavePersona(OPersona);
+            message = "Done!";
+            await JS.InvokeVoidAsync("alert", message);
 
         }
     }

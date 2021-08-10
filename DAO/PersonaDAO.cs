@@ -50,10 +50,14 @@ namespace Tarea9._0.DAO
 
         public async Task<bool> SavePersona(PersonaModel persona)
         {
-            if (persona.Id > 0)
-                return await UpdatePersona(persona);
-            else
+            var resultado = await db.Personas.FirstOrDefaultAsync(o => o.Cedula.Equals(persona.Cedula));
+
+            if (resultado == null)
+            {
                 return await RegistrarPersona(persona);
+            }
+            else
+                return false;
         }
     }
 }
