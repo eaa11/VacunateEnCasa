@@ -1,4 +1,12 @@
 ﻿@inherits LayoutComponentBase
+@using Tarea9._0.Config
+@using Tarea9._0.Pages.Configuracion.ConfiguracionBlazorToast
+
+<BlazoredToasts Position="ToastPosition.BottomRight"
+                Timeout="05"
+                SuccessClass="success-toast-override"
+                SuccessIconClass="fa fa-thumbs-up"
+                ErrorIconClass="fa fa-bug" />
 
 <div class="page">
     <div class="sidebar">
@@ -7,7 +15,6 @@
 
     <div class="main">
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">ACERCA DE: MODIFICAR</a>
         </div>
 
         <div class="content px-4">

@@ -1,5 +1,6 @@
 ﻿@page "/registrar-sangre"
 @inject SangreDAO DAO
+@inject Tarea9._0.Services.IToastService toastService
 
 <h3>REGISTRO DE SANGRES</h3>
 
@@ -54,5 +55,7 @@
     protected async Task RegistrarSangre()
     {
         await DAO.SaveSangre(OSangre);
+        await OnInitializedAsync();
+        toastService.ShowSuccess("Registro Almacenado con exito!");
     }
 }

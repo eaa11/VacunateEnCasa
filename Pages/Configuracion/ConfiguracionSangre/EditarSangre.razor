@@ -1,6 +1,7 @@
 ﻿@page "/editar-sangre/{Id:int}"
 @inject SangreDAO DAO
 @inject NavigationManager Navigator
+@inject Tarea9._0.Services.IToastService toastService
 
 <h3>EDITAR REGISTRO DE PROVINCIAS</h3>
 <hr />
@@ -9,7 +10,7 @@
 {
     <text>@error</text>
 }
-<SangreForm TextoBoton="Guardar" OnValidSubmit="@GuardarRegistro" OProvincia="@OSangre" />
+<SangreForm TextoBoton="Guardar" OnValidSubmit="@GuardarRegistro" OSangre="@OSangre" />
 
 @code {
     [Parameter]
@@ -27,6 +28,7 @@
         try
         {
             await DAO.SaveSangre(OSangre);
+            toastService.ShowSuccess("Registro Almacenado con exito!");
             Navigator.NavigateTo("/registrar-sangre");
         }
         catch (Exception ex)
@@ -34,6 +36,7 @@
 
             Console.WriteLine(ex.Message);
             error = ex.Message;
+            toastService.ShowError("Ups! {0}", error);
         }
     }
 }

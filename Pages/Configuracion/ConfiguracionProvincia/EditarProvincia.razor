@@ -1,8 +1,9 @@
 ﻿@page "/editar-robo/{Id:int}"
 @inject ProvinciaDAO DAO
 @inject NavigationManager Navigator
+@inject Tarea9._0.Services.IToastService toastService
 
-<h3>EDITAR REGISTRO DE PROVINCIAS</h3>
+<h3 style="text-align:center;">EDITAR REGISTRO DE PROVINCIAS</h3>
 <hr />
 
 @if (!string.IsNullOrEmpty(error))
@@ -27,6 +28,7 @@
         try
         {
             await DAO.SaveProvincia(OProvincia);
+            toastService.ShowSuccess("Registro Editado con exito!");
             Navigator.NavigateTo("/registrar-provincia");
         }
         catch (Exception ex)

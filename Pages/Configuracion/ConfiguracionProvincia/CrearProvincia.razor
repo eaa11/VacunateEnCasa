@@ -1,8 +1,8 @@
 ﻿@page "/registrar-provincia"
 @inject ProvinciaDAO DAO
+@inject Tarea9._0.Services.IToastService toastService
 
-<h3>REGISTRO DE PROVINCIAS</h3>
-
+<h3 style="text-align:center;">REGISTRO DE PROVINCIAS</h3>
 <hr />
 
 <ProvinciaForm TextoBoton="Registrar" OnValidSubmit="@RegistrarProvincia" OProvincia="@OProvincia" />
@@ -21,7 +21,7 @@
         {
             @:Loading...
         }
-        else if (Provincias.Count() ==0 )
+        else if (Provincias.Count() == 0)
         {
             @:No hay registros...
         }
@@ -49,6 +49,8 @@
     protected async Task RegistrarProvincia()
     {
         await DAO.SaveProvincia(OProvincia);
+        toastService.ShowSuccess("Registro Almacenado con exito!");
+        await OnInitializedAsync();
     }
     protected override async Task OnInitializedAsync()
     {

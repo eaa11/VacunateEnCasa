@@ -1,3 +1,4 @@
+using Tarea9._0.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +36,8 @@ namespace Tarea9._0
             services.AddScoped<ProvinciaDAO>();
             services.AddScoped<SangreDAO>();
             services.AddScoped<PersonaDAO>();
+            services.AddScoped<IToastService, ToastService>();
+            services.AddServerSideBlazor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
